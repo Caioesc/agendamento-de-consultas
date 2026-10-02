@@ -4,6 +4,7 @@ import br.com.mv.backend.dto.PacienteRequestDTO;
 import br.com.mv.backend.entity.Paciente;
 import br.com.mv.backend.repository.PacienteRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PacienteService {
@@ -15,6 +16,7 @@ public class PacienteService {
         this.repository = pacienteRepository;
     }
 
+    @Transactional
     public void cadastrar(PacienteRequestDTO dadosPaciente){
         Paciente paciente = new Paciente(dadosPaciente);
         repository.save(paciente);

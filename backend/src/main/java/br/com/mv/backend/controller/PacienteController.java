@@ -1,6 +1,7 @@
 package br.com.mv.backend.controller;
 
 import br.com.mv.backend.service.PacienteService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public void cadastrar(@RequestBody PacienteRequestDTO dados){
+    public void cadastrar(@RequestBody @Valid PacienteRequestDTO dados){
         service.cadastrar(dados);
     }
 }
