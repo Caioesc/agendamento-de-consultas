@@ -1,5 +1,6 @@
-package br.com.mv.backend.paciente;
+package br.com.mv.backend.entity;
 
+import br.com.mv.backend.dto.PacienteRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,4 +19,11 @@ public class Paciente {
     private String cpf;
     private String email;
     private String telefone;
+
+    public Paciente(PacienteRequestDTO dados){
+        this.nome = dados.nome();
+        this.cpf = dados.cpf();
+        this.email = dados.email();
+        this.telefone = dados.telefone();
+    }
 }
