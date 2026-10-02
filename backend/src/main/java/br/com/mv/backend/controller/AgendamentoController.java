@@ -18,6 +18,5 @@ public class AgendamentoController {
 
     @PostMapping
     public void cadastrar(AgendamentoRequestDTO agendamento){
-        service.cadastrar(agendamento);
     }
 }
