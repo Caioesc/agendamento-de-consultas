@@ -1,12 +1,12 @@
 package br.com.mv.backend.controller;
 
+import br.com.mv.backend.dto.PacienteResponseDTO;
 import br.com.mv.backend.service.PacienteService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import br.com.mv.backend.dto.PacienteRequestDTO;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("pacientes")
@@ -21,5 +21,10 @@ public class PacienteController {
     @PostMapping
     public void cadastrar(@RequestBody @Valid PacienteRequestDTO dados){
         service.cadastrar(dados);
+    }
+
+    @GetMapping
+    public List<PacienteResponseDTO> listar(){
+        return service.listar();
     }
 }
