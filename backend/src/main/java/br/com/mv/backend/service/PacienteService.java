@@ -20,9 +20,11 @@ public class PacienteService {
     }
 
     @Transactional
-    public void cadastrar(PacienteRequestDTO dadosPaciente){
+    public PacienteResponseDTO cadastrar(PacienteRequestDTO dadosPaciente){
         Paciente paciente = new Paciente(dadosPaciente);
         repository.save(paciente);
+
+        return new PacienteResponseDTO(paciente);
     }
 
     public List<PacienteResponseDTO> listar(){
