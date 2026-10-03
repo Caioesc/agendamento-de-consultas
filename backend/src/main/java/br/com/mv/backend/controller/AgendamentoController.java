@@ -5,6 +5,7 @@ import br.com.mv.backend.dto.AgendamentoResponseDTO;
 import br.com.mv.backend.dto.CancelamentoRequestDTO;
 import br.com.mv.backend.enums.StatusAgendamento;
 import br.com.mv.backend.service.AgendamentoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("agendamentos")
+@Tag(name = "Agendamentos", description = "Operações relacionadas a listagem, marcação e cancelamento de agendamentos")
 public class AgendamentoController {
 
     private final AgendamentoService service;
