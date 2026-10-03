@@ -7,6 +7,7 @@ import br.com.mv.backend.entity.Agendamento;
 import br.com.mv.backend.entity.Paciente;
 import br.com.mv.backend.entity.Profissional;
 import br.com.mv.backend.enums.StatusAgendamento;
+import br.com.mv.backend.infra.exception.RegraDeNegocioException;
 import br.com.mv.backend.repository.AgendamentoRepository;
 import br.com.mv.backend.repository.PacienteRepository;
 import br.com.mv.backend.repository.ProfissionalRepository;
@@ -31,14 +32,14 @@ public class AgendamentoService {
     @Transactional
     public AgendamentoResponseDTO cadastrar(AgendamentoRequestDTO dadosAgendamento){
         if(agendamentoRepository.existsByProfissionalIdAndDataHora(dadosAgendamento.profissionalId(), dadosAgendamento.dataHora())){
-            throw new RuntimeException("O profissional já possui um agendamento nesse horário");
+            throw new RegraDeNegocioException("O profissional já possui um agendamento nesse horário");
         }
 
         Profissional profissional = profissionalRepository.findById(dadosAgendamento.profissionalId()).orElseThrow(
-                () -> new RuntimeException("Profissional não encontrado"));
+                () -> new RegraDeNegocioException("Profissional não encontrado"));
 
         Paciente paciente = pacienteRepository.findById(dadosAgendamento.pacienteId()).orElseThrow(
-                ()-> new RuntimeException("Paciente não encontrado"));
+                ()-> new RegraDeNegocioException("Paciente não encontrado"));
 
         Agendamento agendamento = new Agendamento(profissional, paciente, dadosAgendamento.dataHora(), dadosAgendamento.tipoAtendimento());
 
