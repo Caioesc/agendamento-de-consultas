@@ -1,17 +1,43 @@
 package br.com.mv.backend.service;
 
 import br.com.mv.backend.dto.AgendamentoRequestDTO;
+import br.com.mv.backend.dto.AgendamentoResponseDTO;
 import br.com.mv.backend.entity.Agendamento;
+import br.com.mv.backend.entity.Paciente;
+import br.com.mv.backend.entity.Profissional;
 import br.com.mv.backend.repository.AgendamentoRepository;
+import br.com.mv.backend.repository.PacienteRepository;
+import br.com.mv.backend.repository.ProfissionalRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AgendamentoService {
 
-    private final AgendamentoRepository repository;
+    private final AgendamentoRepository agendamentoRepository;
+    private final ProfissionalRepository profissionalRepository;
+    private final PacienteRepository pacienteRepository;
 
-    public AgendamentoService(AgendamentoRepository agendamentoRepository){
-        this.repository = agendamentoRepository;
+    public AgendamentoService(AgendamentoRepository agendamentoRepository, ProfissionalRepository profissionalRepository, PacienteRepository pacienteRepository){
+        this.agendamentoRepository = agendamentoRepository;
+        this.profissionalRepository = profissionalRepository;
+        this.pacienteRepository = pacienteRepository;
+    }
+
+    public AgendamentoResponseDTO cadastrar(AgendamentoRequestDTO dadosAgendamento){
+        if(agendamentoRepository.existsByProfissionalIdAndDataHora(dadosAgendamento.profissionalId(), dadosAgendamento.dataHora())){
+            throw new RuntimeException("O profissional já possui um agendamento nesse horário");
+        }
+
+        Profissional profissional = profissionalRepository.findById(dadosAgendamento.profissionalId()).orElseThrow(
+                () -> new RuntimeException("Profissional não encontrado"));
+
+        Paciente paciente = pacienteRepository.findById(dadosAgendamento.pacienteId()).orElseThrow(
+                ()-> new RuntimeException("Paciente não encontrado"));
+
+        Agendamento agendamento = new Agendamento(profissional, paciente, dadosAgendamento.dataHora(), dadosAgendamento.tipoAtendimento());
+
+        agendamentoRepository.save(agendamento);
+        return new AgendamentoResponseDTO(agendamento);
     }
 
 
