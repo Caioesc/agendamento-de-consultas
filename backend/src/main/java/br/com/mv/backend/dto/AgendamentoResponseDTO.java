@@ -12,7 +12,8 @@ public record AgendamentoResponseDTO(
         String nomeProfissional,
         LocalDateTime dataHora,
         TipoAtendimento tipoAtendimento,
-        StatusAgendamento statusAgendamento
+        StatusAgendamento statusAgendamento,
+        String motivoCancelamento
 ){
 
     public AgendamentoResponseDTO(Agendamento agendamento){
@@ -22,7 +23,8 @@ public record AgendamentoResponseDTO(
                 agendamento.getProfissional().getNome(),
                 agendamento.getDataHora(),
                 agendamento.getTipoAtendimento(),
-                agendamento.getStatus()
+                agendamento.getStatus(),
+                agendamento.getMotivoCancelamento()
         );
     }
 

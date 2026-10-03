@@ -1,6 +1,7 @@
 package br.com.mv.backend.entity;
 
 import br.com.mv.backend.dto.AgendamentoRequestDTO;
+import br.com.mv.backend.dto.CancelamentoRequestDTO;
 import br.com.mv.backend.enums.StatusAgendamento;
 import br.com.mv.backend.enums.TipoAtendimento;
 import jakarta.persistence.*;
@@ -35,7 +36,7 @@ public class Agendamento {
     @Enumerated(EnumType.STRING)
     private StatusAgendamento status;
 
-    private String motivoEncerramento;
+    private String motivoCancelamento;
 
     public Agendamento(Profissional profissional, Paciente paciente, LocalDateTime dataHora, TipoAtendimento tipoAtendimento){
         this.profissional = profissional;
@@ -43,6 +44,11 @@ public class Agendamento {
         this.dataHora = dataHora;
         this.tipoAtendimento = tipoAtendimento;
         this.status = StatusAgendamento.AGENDADO;
+    }
+
+    public void cancelar(CancelamentoRequestDTO dadosCancelamento){
+        this.status = StatusAgendamento.CANCELADO;
+        this.motivoCancelamento = dadosCancelamento.motivo();
     }
 
 }
