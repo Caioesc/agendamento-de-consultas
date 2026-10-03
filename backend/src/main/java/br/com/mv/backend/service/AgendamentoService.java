@@ -6,6 +6,7 @@ import br.com.mv.backend.dto.CancelamentoRequestDTO;
 import br.com.mv.backend.entity.Agendamento;
 import br.com.mv.backend.entity.Paciente;
 import br.com.mv.backend.entity.Profissional;
+import br.com.mv.backend.enums.StatusAgendamento;
 import br.com.mv.backend.repository.AgendamentoRepository;
 import br.com.mv.backend.repository.PacienteRepository;
 import br.com.mv.backend.repository.ProfissionalRepository;
@@ -45,8 +46,18 @@ public class AgendamentoService {
         return new AgendamentoResponseDTO(agendamento);
     }
 
-    public List<AgendamentoResponseDTO> listar(){
-        return agendamentoRepository.findAll().stream().map(AgendamentoResponseDTO::new).toList();
+    public List<AgendamentoResponseDTO> listar(Long profissionalId, Long pacienteId, StatusAgendamento statusAgendamento){
+        List<Agendamento> agendamentos;
+        if(profissionalId != null){
+            agendamentos = agendamentoRepository.findByProfissionalId(profissionalId);
+        } else if (pacienteId != null) {
+            agendamentos = agendamentoRepository.findByPacienteId(pacienteId);
+        } else if (statusAgendamento != null) {
+            agendamentos = agendamentoRepository.findByStatus(statusAgendamento);
+        }else {
+            agendamentos = agendamentoRepository.findAll();
+        }
+        return agendamentos.stream().map(AgendamentoResponseDTO::new).toList();
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package br.com.mv.backend.controller;
 import br.com.mv.backend.dto.AgendamentoRequestDTO;
 import br.com.mv.backend.dto.AgendamentoResponseDTO;
 import br.com.mv.backend.dto.CancelamentoRequestDTO;
+import br.com.mv.backend.enums.StatusAgendamento;
 import br.com.mv.backend.service.AgendamentoService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +27,15 @@ public class AgendamentoController {
     }
 
     @GetMapping
-    public List<AgendamentoResponseDTO> listar(){
-        return service.listar();
+    public List<AgendamentoResponseDTO> listar(
+            @RequestParam(required = false) Long profissionalId,
+            @RequestParam(required = false) Long pacienteId,
+            @RequestParam(required = false) StatusAgendamento status
+    ){
+        return service.listar(profissionalId, pacienteId, status);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/cancelar/{id}")
     public AgendamentoResponseDTO cancelar(@PathVariable Long id, @RequestBody @Valid CancelamentoRequestDTO dadosCancelamento){
         return service.cancelar(id, dadosCancelamento);
     }
