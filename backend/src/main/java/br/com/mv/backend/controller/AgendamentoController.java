@@ -1,8 +1,11 @@
 package br.com.mv.backend.controller;
 
 import br.com.mv.backend.dto.AgendamentoRequestDTO;
+import br.com.mv.backend.dto.AgendamentoResponseDTO;
 import br.com.mv.backend.service.AgendamentoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +20,8 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public void cadastrar(AgendamentoRequestDTO agendamento){
+    public AgendamentoResponseDTO cadastrar(@RequestBody @Valid AgendamentoRequestDTO agendamento){
+        AgendamentoResponseDTO response = service.cadastrar(agendamento);
+        return response;
     }
 }
