@@ -7,16 +7,16 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record AgendamentoRequestDTO(
-        @NotNull
+        @NotNull(message = "O paciente deve ser informado")
         Long pacienteId,
 
-        @NotNull
+        @NotNull(message = "O profissional deve ser informado")
         Long profissionalId,
 
-        @NotNull
-        @FutureOrPresent(message = "O agendamento não pode ser criado em uma data ou hora passada.")
+        @NotNull(message = "A data/hora devem ser informados")
+        @FutureOrPresent(message = "O agendamento não pode ser criado em uma data ou hora passada")
         LocalDateTime dataHora,
 
-        @NotNull
+        @NotNull(message = "O tipo do atendimento deve ser informado")
         TipoAtendimento tipoAtendimento) {
 }
