@@ -1,0 +1,37 @@
+<div class="container">
+    <mat-card>
+        <h2>Cadasto de paciente</h2>
+
+        <form [formGroup]="formulario" class="form-layout" (ngSubmit)="salvar()">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" formControlName="nome">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>CPF</mat-label>
+                <input matInput type="text" formControlName="cpf" mask="000.000.000-00">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Telefone</mat-label>
+                <input matInput type="text" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000">
+            </mat-form-field>
+
+           <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email">
+            </mat-form-field>
+
+            <div class="acoes">
+                <button mat-button type="button" routerLink="/pacientes">Cancelar</button>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="formulario.invalid">
+                    Cadastrar Paciente
+                </button>
+            </div>
+
+        </form>
+    </mat-card>
+</div>
