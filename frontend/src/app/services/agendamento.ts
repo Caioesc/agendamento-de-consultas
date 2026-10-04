@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -24,8 +24,15 @@ export class AgendamentoService {
 
   constructor(private http: HttpClient) { }
 
-  listar(): Observable<Agendamento[]> {
-    return this.http.get<Agendamento[]>(this.apiUrl);
+  listar(filtros?: any): Observable<Agendamento[]> {
+    let params = new HttpParams();
+    
+    if (filtros) {
+      if (filtros.status) params = params.set('status', filtros.status);
+      if (filtros.pacienteId) params = params.set('pacienteId', filtros.pacienteId);
+      if (filtros.profissionalId) params = params.set('profissionalId', filtros.profissionalId);
+    }
+    return this.http.get<Agendamento[]>(this.apiUrl, { params });
   }
 
   cadastrar(agendamento: Agendamento): Observable<any> {
