@@ -6,10 +6,10 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
 public record PacienteRequestDTO(
-        @NotBlank
+        @NotBlank(message = "O nome do paciente é obrigatório")
         String nome,
 
-        @NotBlank
+        @NotBlank(message = "O CPF do paciente é obrigatório")
         @CPF(message = "O CPF informado é inválido.")
         String cpf,
 
@@ -18,6 +18,6 @@ public record PacienteRequestDTO(
         String telefone,
 
         @NotBlank
-        @Email
+        @Email(message = "O email deve estar na formatação correta")
         String email) {
 }
