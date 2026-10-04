@@ -1,0 +1,64 @@
+<div class="container">
+    <mat-card>
+        <div class="header-card">
+            <h2>Consultas Agendadas</h2>
+            <button mat-flat-button color="primary" routerLink="/novoagendamento">
+                <mat-icon>add</mat-icon> Novo Agendamento
+            </button>
+        </div>
+
+        <mat-card-content>
+
+            <table mat-table [dataSource]="agendamentos" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="paciente">
+                    <th mat-header-cell *matHeaderCellDef> Nome do Paciente </th>
+                    <td mat-cell *matCellDef="let agendamento"> {{ agendamento.nomePaciente }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="profissional">
+                    <th mat-header-cell *matHeaderCellDef> Profissional </th>
+                    <td mat-cell *matCellDef="let agendamento"> {{ agendamento.nomeProfissional }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dataHora">
+                    <th mat-header-cell *matHeaderCellDef> Data/Hora </th>
+                    <td mat-cell *matCellDef="let agendamento"> {{agendamento.dataHora | date:'dd/MM/yyyy HH:mm'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoAtendimento">
+                    <th mat-header-cell *matHeaderCellDef> Tipo do Atendimento </th>
+                    <td mat-cell *matCellDef="let agendamento"> {{agendamento.tipoAtendimento}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let agendamento"> {{agendamento.statusAgendamento}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="motivoCancelamento">
+                    <th mat-header-cell *matHeaderCellDef> Motivo do cancelamento </th>
+                    <td mat-cell *matCellDef="let agendamento"> {{agendamento.motivoCancelamento || "-"}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acoes">
+                    <th mat-header-cell *matHeaderCellDef> Ações </th>
+                    <td mat-cell *matCellDef="let agendamento">
+                        <button mat-icon-button color="warn" 
+                        [disabled]="agendamento.statusAgendamento === 'CANCELADO'"
+                        title="Cancelar Consulta"
+                        (click)="cancelarConsulta(agendamento.id)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="colunasExibidas"></tr>
+                <tr mat-row *matRowDef="let row; columns: colunasExibidas;"></tr>
+
+            </table>
+
+        </mat-card-content>
+    </mat-card>
+</div>
