@@ -69,7 +69,7 @@ Execute:
 mvn spring-boot:run
 ```
 
-**3. Inicie a aplicação Front-End:**
+**4. Inicie a aplicação Front-End:**
 Em outro terminal, volte para a raiz do projeto e vá para o front-end:
 ```bash
 cd frontend
