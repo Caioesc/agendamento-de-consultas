@@ -9,6 +9,7 @@ import br.com.mv.backend.dto.PacienteRequestDTO;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("pacientes")
 @Tag(name = "Pacientes", description = "Operações relacionadas ao cadastro e listagem de pacientes")
