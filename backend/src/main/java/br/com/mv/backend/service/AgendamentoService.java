@@ -47,17 +47,38 @@ public class AgendamentoService {
         return new AgendamentoResponseDTO(agendamento);
     }
 
-    public List<AgendamentoResponseDTO> listar(Long profissionalId, Long pacienteId, StatusAgendamento statusAgendamento){
+    public List<AgendamentoResponseDTO> listar(Long profissionalId, Long pacienteId, StatusAgendamento statusAgendamento) {
         List<Agendamento> agendamentos;
-        if(profissionalId != null){
+
+        //Verifica combinações de 3 filtros
+        if (profissionalId != null && pacienteId != null && statusAgendamento != null) {
+            agendamentos = agendamentoRepository.findByPacienteIdAndProfissionalIdAndStatus(pacienteId, profissionalId, statusAgendamento);
+        }
+        //Verifica combinações de 2 filtros
+        else if (pacienteId != null && profissionalId != null) {
+            agendamentos = agendamentoRepository.findByPacienteIdAndProfissionalId(pacienteId, profissionalId);
+        }
+        else if (pacienteId != null && statusAgendamento != null) {
+            agendamentos = agendamentoRepository.findByPacienteIdAndStatus(pacienteId, statusAgendamento);
+        }
+        else if (profissionalId != null && statusAgendamento != null) {
+            agendamentos = agendamentoRepository.findByProfissionalIdAndStatus(profissionalId, statusAgendamento);
+        }
+        //Verifica filtros individuais
+        else if (profissionalId != null) {
             agendamentos = agendamentoRepository.findByProfissionalId(profissionalId);
-        } else if (pacienteId != null) {
+        }
+        else if (pacienteId != null) {
             agendamentos = agendamentoRepository.findByPacienteId(pacienteId);
-        } else if (statusAgendamento != null) {
+        }
+        else if (statusAgendamento != null) {
             agendamentos = agendamentoRepository.findByStatus(statusAgendamento);
-        }else {
+        }
+        //Nenhum filtro
+        else {
             agendamentos = agendamentoRepository.findAll();
         }
+
         return agendamentos.stream().map(AgendamentoResponseDTO::new).toList();
     }
 
