@@ -1,0 +1,49 @@
+<div class="container">
+    <mat-card>
+        <h2>Novo Agendamento</h2>
+
+        <form [formGroup]="formulario" class="form-layout" (ngSubmit)="salvar()">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Paciente</mat-label>
+                <mat-select formControlName="pacienteId" placeholder="Selecione o paciente">
+                    @for (paciente of pacientes; track paciente.id) {
+                    <mat-option [value]="paciente.id">{{ paciente.nome }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Profissional</mat-label>
+                <mat-select formControlName="profissionalId" placeholder="Selecione o médico">
+                    @for (profissional of profissionaisMock; track profissional.id) {
+                    <mat-option [value]="profissional.id">{{ profissional.nome}} - {{profissional.especialidade}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Data e Hora</mat-label>
+                <input matInput type="datetime-local" formControlName="dataHora" max="9999-12-31T23:59" maxlength="16">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo de Atendimento</mat-label>
+                <mat-select formControlName="tipoAtendimento">
+                    @for (tipo of tiposDeAtendimento; track tipo) {
+                    <mat-option [value]="tipo">{{ tipo }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <div class="acoes">
+                <button mat-button type="button" routerLink="">Cancelar</button>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="formulario.invalid">
+                    Salvar Agendamento
+                </button>
+            </div>
+
+        </form>
+    </mat-card>
+</div>

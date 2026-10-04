@@ -23,4 +23,8 @@ export class AgendamentoService {
   listar(): Observable<Agendamento[]> {
     return this.http.get<Agendamento[]>(this.apiUrl);
   }
+
+  cadastrar(agendamento: Agendamento): Observable<any> {
+    return this.http.post(this.apiUrl, agendamento);
+  }
 }

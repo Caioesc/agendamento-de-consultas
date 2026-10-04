@@ -1,0 +1,24 @@
+.container {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 24px;
+  padding: 16px 16px 0;
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 16px;
+}
