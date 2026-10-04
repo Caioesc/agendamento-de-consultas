@@ -10,6 +10,10 @@ export interface Agendamento{
   statusAgendamento: string
 }
 
+export interface CancelamentoRequest {
+  motivo: string;
+}
+
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +30,9 @@ export class AgendamentoService {
 
   cadastrar(agendamento: Agendamento): Observable<any> {
     return this.http.post(this.apiUrl, agendamento);
+  }
+
+  cancelar(id: number, dados: CancelamentoRequest): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/cancelar/${id}`, dados);
   }
 }
