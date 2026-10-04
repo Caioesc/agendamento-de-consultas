@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Cabecalho } from './components/cabecalho/cabecalho';
-import { TabelaAgendamentos } from './components/tabela-agendamentos/tabela-agendamentos';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Cabecalho, TabelaAgendamentos],
+  imports: [RouterOutlet, MatToolbarModule, RouterModule, MatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

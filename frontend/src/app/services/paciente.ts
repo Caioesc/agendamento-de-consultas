@@ -8,6 +8,13 @@ export interface DadosPaciente {
   email: string;
 }
 
+export interface NovoPaciente {
+  nome: string;
+  cpf: string;
+  telefone: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,5 +25,9 @@ export class PacienteService {
 
   listar(): Observable<DadosPaciente[]> {
     return this.http.get<DadosPaciente[]>(this.apiUrl);
+  }
+
+  cadastrar(paciente: NovoPaciente): Observable<any> {
+    return this.http.post(this.apiUrl, paciente);
   }
 }
